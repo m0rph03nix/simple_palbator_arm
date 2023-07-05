@@ -33,17 +33,17 @@ source devel/setup.bash
 
 ## Lancement
 
-- 
+- **Arm service** 
 ```bash
 rosrun simple_palbator_arm native_mvt.py
 ```
 
-- Call the service 
+- **Call the service** 
 ```bash
 rosservice call /point_front "{}"
 ```
 
-- Pour se lancer depuis un code python, importez ce srv standard
+- **Pour se lancer depuis un code python, importez ce srv standard**
 ```python
 from std_srvs.srv import Trigger
 ```
