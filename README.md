@@ -33,6 +33,18 @@ source devel/setup.bash
 
 ## Lancement
 
+- **Une fois pour toute**
+  - `Installation` --> `URCaps` --> `External Control` 
+    - Mettre l'IP du PC de commande
+
+
+- **Launch Arm driver** 
+  - Communication Interface (UR Tablet), click below on "Play" and execute the external_control program
+    ```bash
+    roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=10.68.0.101 use_tool_communication:=true tool_voltage:=24 tool_parity:=0 tool_baud_rate:=115200 tool_stop_bits:=1 tool_rx_idle_chars:=1.5 tool_tx_idle_chars:=3.5 tool_device_name:=/tmp/ttyUR
+    ```
+  - Communication Interface (UR Tablet), click below on "Play" and execute the external_control program
+
 - **Arm service** 
 ```bash
 rosrun simple_palbator_arm native_mvt.py
