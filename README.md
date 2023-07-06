@@ -59,3 +59,40 @@ rosservice call /point_front "{}"
 ```python
 from std_srvs.srv import Trigger
 ```
+
+
+## DOCKER
+
+### Build the Dockerfile
+```bash
+cd simple_palbator_arm
+docker build -t test .
+```
+
+### Run the docker image
+```bash
+docker run -it -p 54321:54321 -p 50001:50001 -p 50002:50002 -p 50003:50003 -p 50004:50004 test
+```
+
+### Commands in temrinal
+
+1. 
+```bash
+cd /catkin_ws
+source devel/setup.bash
+rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /tmp/ttyUR
+```
+
+2.
+```bash
+cd /catkin_ws
+source devel/setup.bash
+roslaunch robotiq_2f_gripper_action_server robotiq_2f_gripper_action_server.launch
+```
+
+3.
+```bash
+cd /catkin_ws
+source devel/setup.bash
+rosrun robotiq_2f_gripper_control Robotiq2FGripperSimpleController.py 
+```
