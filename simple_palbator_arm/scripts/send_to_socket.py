@@ -15,6 +15,7 @@ class NativeMoveTest():
         s1 = rospy.Service('point_front', Trigger, self.point_front)
         s2 = rospy.Service('raw_grasp', Trigger, self.raw_grasp)
         s3 = rospy.Service('human_grasp', Trigger, self.human_grasp)
+        s3 = rospy.Service('human_carry', Trigger, self.human_carry)
 
         HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
         PORT = 10145        # Port to listen on (non-privileged ports are > 1023)
