@@ -25,12 +25,12 @@ RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
 # create a catkin workspace
-RUN cd /catkin_ws/src \
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh \ 
+    && cd /catkin_ws/ \
     && git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver \
     && git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot \
-    && apt update -qq \
     && rosdep update \
-    && rosdep install --from-paths src --ignore-src -y \
+    && rosdep install --from-paths src --ignore-src -y
 
 
 # Construction du paquet ROS
