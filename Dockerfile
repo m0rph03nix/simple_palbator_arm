@@ -19,7 +19,10 @@ RUN apt-get update && apt-get install -y \
     ros-melodic-industrial-robot-status-interface \
     ros-melodic-industrial-robot-status-controller \
     ros-melodic-twist-controller \ 
-    ros-melodic-cartesian-trajectory-controller
+    ros-melodic-cartesian-trajectory-controller \
+    ros-melodic-gazebo-plugins \ 
+    ros-melodic-soem \
+    ros-melodic-socketcan-interface \
     # Ajoutez ici d'autres dépendances système si nécessaire \
     
     && rm -rf /var/lib/apt/lists/* \
@@ -44,12 +47,11 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
     && cd /catkin_ws/ \
     && git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver \
     && git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot \
+    && git clone https://github.com/ros-industrial/robotiq  src/robotiq \
+    && git clone https://github.com/filesmuggler/robotiq.git src/robotiq_des \
     && rosdep update \
     && rosdep install --from-paths src --ignore-src -y
 
 
 # Construction du paquet ROS
-RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make && source devel/setup.bash && roscore"
-
-# Exécution du nœud ROS spécifique
-CMD ["/bin/bash", "-c", "source /catkin_ws/devel/setup.bash && roslaunch urdf_tutorial display.launch model:=$(find pmb2_description)/robots/pmb2_custom.urdf.xacro"]
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make && source devel/setup.bash"
