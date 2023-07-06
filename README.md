@@ -55,6 +55,18 @@ rosrun simple_palbator_arm native_mvt.py
 rosservice call /point_front "{}"
 ```
 
+```bash
+rosservice call /raw_grasp "{}"
+```
+
+```bash
+rosservice call /human_grasp "{}"
+```
+
+```bash
+rosservice call /human_carry "{}"
+```
+
 - **Pour se lancer depuis un code python, importez ce srv standard**
 ```python
 from std_srvs.srv import Trigger
@@ -81,6 +93,7 @@ Run this command first in each terminal, to enter docker exec :
 ```bash
 docker exec -it <name of container> bash
 ```
+--> Rosrun + roslaunch de en haut
 
 
 In the first terminal:
@@ -102,4 +115,24 @@ In the third terminal:
 cd /catkin_ws
 source devel/setup.bash
 rosrun robotiq_2f_gripper_control Robotiq2FGripperSimpleController.py 
+```
+
+In the 4th terminal:
+```bash
+cd /catkin_ws
+source devel/setup.bash
+rosrun simple_palbator_arm native_mvt.py
+```
+
+In the 5th terminal:
+```bash
+cd /catkin_ws
+source devel/setup.bash
+rosrun simple_palbator_arm socket_gateway.py
+```
+
+## Hors du bash
+Pour acceder aux services documentés plus haut
+```bash
+rosrun simple_palbator_arm send_to_socket.py
 ```
