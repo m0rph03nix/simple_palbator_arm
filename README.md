@@ -71,7 +71,7 @@ docker build -t test .
 
 ### Run the docker image
 ```bash
-docker run -it -p 54321:54321 -p 50001:50001 -p 50002:50002 -p 50003:50003 -p 50004:50004 test
+docker run -it -p 54321:54321 -p 50001:50001 -p 50002:50002 -p 50003:50003 -p 50004:50004 -p 65432:65432 test
 ```
 
 ### Commands in terminal
