@@ -17,6 +17,8 @@ class NativeMoveTest():
         s1 = rospy.Service('point_front', Trigger, self.point_front)
         s2 = rospy.Service('raw_grasp', Trigger, self.raw_grasp)
         s3 = rospy.Service('cart_grasp', Trigger, self.cart_grasp)
+        s4 = rospy.Service('human_grasp', Trigger, self.human_grasp)
+        s4 = rospy.Service('human_carry', Trigger, self.human_carry)
         print("Node Init")
 
         self.Grip = Gripper() 
@@ -51,9 +53,9 @@ class NativeMoveTest():
 
     def raw_grasp(self, req):
 
-        position_list = [[radians(87), radians(-97), radians(159), radians(-51), radians(-180), radians(45) ]]
-        duration_list = [2]      
-        self.TC.send_joint_trajectory(position_list, duration_list)
+        #position_list = [[radians(87), radians(-97), radians(159), radians(-51), radians(-180), radians(45) ]]
+        #duration_list = [2]      
+        #self.TC.send_joint_trajectory(position_list, duration_list)
        
         # Pregrasp 
         position_list = [[radians(73.46), radians(-69), radians(101.68), radians(-121.68), radians(-90), radians(-15.52) ]]
@@ -68,11 +70,33 @@ class NativeMoveTest():
         self.Grip.close()  
 
         # Travel with bag
-        #position_list = [[-0.22848111787904912, -2.039434095422262, 1.6872642675982874, -1.00609643877063, 4.5479583740234375, 0.9501953125]]
-        #duration_list = [5]      
-        #self.TC.send_joint_trajectory(position_list, duration_list)
+        position_list = [[-0.22848111787904912, -2.039434095422262, 1.6872642675982874, -1.00609643877063, 4.5479583740234375, 0.9501953125]]
+        duration_list = [5]      
+        self.TC.send_joint_trajectory(position_list, duration_list)
                      
         print("Traj done")       
+
+
+
+    def human_grasp(self, req):
+
+        position_list = [[radians(87), radians(-98.6), radians(141.82), radians(-115.3), radians(87.1), radians(10.9) ]]
+        duration_list = [3]      
+        self.TC.send_joint_trajectory(position_list, duration_list)
+                    
+        print("Traj done")     
+        
+
+    def human_carry(self, req):
+
+        position_list = [[radians(4.9), radians(-98.6), radians(141.82), radians(-186.5), radians(87.1), radians(10.9) ]]
+        duration_list = [3]      
+        self.TC.send_joint_trajectory(position_list, duration_list)
+                    
+        print("Traj done")           
+
+
+
 
     def cart_grasp(self, req):
             
