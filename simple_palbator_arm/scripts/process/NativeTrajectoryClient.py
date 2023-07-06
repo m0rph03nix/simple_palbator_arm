@@ -134,7 +134,7 @@ class TrajectoryClient:
         result = trajectory_client.get_result()
         rospy.loginfo("Trajectory execution finished in state {}".format(result.error_code))
 
-    def send_cartesian_trajectory(self):
+    def send_cartesian_trajectory(self, pose_list, duration_list):
         """Creates a Cartesian trajectory and sends it using the selected action server"""
         self.switch_controller(self.cartesian_trajectory_controller)
 
@@ -151,34 +151,14 @@ class TrajectoryClient:
             rospy.logerr("Could not reach controller action server.")
             sys.exit(-1)
 
-        # The following list are arbitrary positions
-        # Change to your own needs if desired
-        pose_list = [
-            geometry_msgs.Pose(
-                #geometry_msgs.Vector3(0.4, -0.1, 0.4), geometry_msgs.Quaternion(0, 0, 0, 1)
-                geometry_msgs.Vector3(0.4, -0.1, 0.4), geometry_msgs.Quaternion(0, 0, 0, 1)
-            ),
-            geometry_msgs.Pose(
-                geometry_msgs.Vector3(0.4, -0.1, 0.6), geometry_msgs.Quaternion(0, 0, 0, 1)
-            ),
-            geometry_msgs.Pose(
-                geometry_msgs.Vector3(0.4, 0.3, 0.6), geometry_msgs.Quaternion(0, 0, 0, 1)
-            ),
-            geometry_msgs.Pose(
-                geometry_msgs.Vector3(0.4, 0.3, 0.4), geometry_msgs.Quaternion(0, 0, 0, 1)
-            ),
-            geometry_msgs.Pose(
-                geometry_msgs.Vector3(0.4, -0.1, 0.4), geometry_msgs.Quaternion(0, 0, 0, 1)
-            ),
-        ]
-        duration_list = [3.0, 4.0, 5.0, 6.0, 7.0]
+
         for i, pose in enumerate(pose_list):
             point = CartesianTrajectoryPoint()
             point.pose = pose
             point.time_from_start = rospy.Duration(duration_list[i])
             goal.trajectory.points.append(point)
 
-        self.ask_confirmation(pose_list)
+        #self.ask_confirmation(pose_list)
         rospy.loginfo(
             "Executing trajectory using the {}".format(self.cartesian_trajectory_controller)
         )
