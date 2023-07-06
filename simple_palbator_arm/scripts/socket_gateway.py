@@ -40,6 +40,8 @@ class NativeMoveTest():
                     self.call_raw_grasp()
                 elif int(data) == 3:
                     self.call_human_grasp()
+                elif int(data) == 4:
+                    self.call_human_carry()                    
         self.sock.close()
 
 
@@ -78,7 +80,20 @@ class NativeMoveTest():
         except rospy.ServiceException as e:
             print("Service call failed: %s"%e)   
 
-            self.conn.sendall(self.nok_response)             
+            self.conn.sendall(self.nok_response)     
+
+    def call_human_carry(self):  
+
+        try:
+            human_carry = rospy.ServiceProxy('human_carry', Trigger)
+            resp1 = human_carry()
+            print("4")
+            self.conn.sendall(self.ok_response)
+            return resp1.success
+        except rospy.ServiceException as e:
+            print("Service call failed: %s"%e)   
+
+            self.conn.sendall(self.nok_response)                       
 
 
 if __name__ == "__main__":

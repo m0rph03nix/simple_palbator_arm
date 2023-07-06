@@ -46,6 +46,11 @@ class NativeMoveTest():
         data = "3"
         self.sock.send(data.encode())
         print("3 done")
+
+    def human_carry(self, req):
+        data = "4"
+        self.sock.send(data.encode())
+        print("4 done")        
                      
 
 
