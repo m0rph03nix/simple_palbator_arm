@@ -6,7 +6,22 @@ RUN apt-get update && apt-get install -y \
     ros-melodic-ros-controllers \
     ros-melodic-moveit \
     ros-melodic-robot-state-publisher \
+    ros-melodic-trac-ik-kinematics-plugin \
+    ros-melodic-tf-conversions \
+    ros-melodic-pass-through-controllers \ 
+    ros-melodic-speed-scaling-state-controller \
+    ros-melodic-scaled-joint-trajectory-controller \
+    ros-melodic-warehouse-ros-mongo \
+    ros-melodic-ur-client-library \
+    ros-melodic-ur-msgs \
+    ros-melodic-joint-state-publisher-gui \
+    ros-melodic-gazebo-ros-control \
+    ros-melodic-industrial-robot-status-interface \
+    ros-melodic-industrial-robot-status-controller \
+    ros-melodic-twist-controller \ 
+    ros-melodic-cartesian-trajectory-controller
     # Ajoutez ici d'autres dépendances système si nécessaire \
+    
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /catkin_ws/src
 
