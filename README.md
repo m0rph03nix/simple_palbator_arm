@@ -95,36 +95,42 @@ docker exec -it <name of container> bash
 ```
 --> Rosrun + roslaunch de en haut
 
-
 In the first terminal:
 ```bash
 cd /catkin_ws
 source devel/setup.bash
-rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /tmp/ttyUR
+roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=10.68.0.101 use_tool_communication:=true tool_voltage:=24 tool_parity:=0 tool_baud_rate:=115200 tool_stop_bits:=1 tool_rx_idle_chars:=1.5 tool_tx_idle_chars:=3.5 tool_device_name:=/tmp/ttyUR
 ```
 
 In the second terminal:
 ```bash
 cd /catkin_ws
 source devel/setup.bash
-roslaunch robotiq_2f_gripper_action_server robotiq_2f_gripper_action_server.launch
+rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /tmp/ttyUR
 ```
 
 In the third terminal:
 ```bash
 cd /catkin_ws
 source devel/setup.bash
-rosrun robotiq_2f_gripper_control Robotiq2FGripperSimpleController.py 
+roslaunch robotiq_2f_gripper_action_server robotiq_2f_gripper_action_server.launch
 ```
 
 In the 4th terminal:
 ```bash
 cd /catkin_ws
 source devel/setup.bash
-rosrun simple_palbator_arm native_mvt.py
+rosrun robotiq_2f_gripper_control Robotiq2FGripperSimpleController.py 
 ```
 
 In the 5th terminal:
+```bash
+cd /catkin_ws
+source devel/setup.bash
+rosrun simple_palbator_arm native_mvt.py
+```
+
+In the 6th terminal:
 ```bash
 cd /catkin_ws
 source devel/setup.bash
