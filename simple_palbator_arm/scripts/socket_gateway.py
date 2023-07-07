@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import rospy
 from process.NativeTrajectoryClient import TrajectoryClient
@@ -29,21 +29,19 @@ class NativeMoveTest():
 
         self.conn, self.addr = self.sock.accept()
 
-        with self.conn:
-            print("connected")
-            while not rospy.is_shutdown():
-                data = self.conn.recv(1024)
-                if not data: break
-                if int(data) == 1:
-                    self.call_point_front()
-                elif int(data) == 2:
-                    self.call_raw_grasp()
-                elif int(data) == 3:
-                    self.call_human_grasp()
-                elif int(data) == 4:
-                    self.call_human_carry()        
-                elif int(data) == 5:
-                    self.call_raw_drop()                                 
+        with not rospy.is_shutdown():
+            data = self.conn.recv(1024)
+            if not data: break
+            if int(data) == 1:
+                self.call_point_front()
+            elif int(data) == 2:
+                self.call_raw_grasp()
+            elif int(data) == 3:
+                self.call_human_grasp()
+            elif int(data) == 4:
+                self.call_human_carry()        
+            elif int(data) == 5:
+                self.call_raw_drop()                                 
         self.sock.close()
 
 
