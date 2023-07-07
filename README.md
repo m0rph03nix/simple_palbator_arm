@@ -93,7 +93,7 @@ Run this command first in each terminal, to enter docker exec :
 ```bash
 docker exec -it <name of container> bash
 ```
---> Rosrun + roslaunch de en haut
+--> Rosrun + roslaunch de bas en haut
 
 In the first terminal:
 ```bash
