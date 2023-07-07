@@ -41,7 +41,9 @@ class NativeMoveTest():
                 elif int(data) == 3:
                     self.call_human_grasp()
                 elif int(data) == 4:
-                    self.call_human_carry()                    
+                    self.call_human_carry()        
+                elif int(data) == 5:
+                    self.call_raw_drop()                                 
         self.sock.close()
 
 
@@ -93,7 +95,21 @@ class NativeMoveTest():
         except rospy.ServiceException as e:
             print("Service call failed: %s"%e)   
 
+            self.conn.sendall(self.nok_response)                 
+
+    def call_raw_drop(self):  
+
+        try:
+            raw_drop = rospy.ServiceProxy('raw_drop', Trigger)
+            resp1 = raw_drop()
+            print("4")
+            self.conn.sendall(self.ok_response)
+            return resp1.success
+        except rospy.ServiceException as e:
+            print("Service call failed: %s"%e)   
+
             self.conn.sendall(self.nok_response)                       
+
 
 
 if __name__ == "__main__":

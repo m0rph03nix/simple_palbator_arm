@@ -12,10 +12,13 @@ class NativeMoveTest():
     def __init__(self):
         print("Launch node ?")
         rospy.init_node("NativeMoveTest")
+
         s1 = rospy.Service('point_front', Trigger, self.point_front)
         s2 = rospy.Service('raw_grasp', Trigger, self.raw_grasp)
-        s3 = rospy.Service('human_grasp', Trigger, self.human_grasp)
-        s3 = rospy.Service('human_carry', Trigger, self.human_carry)
+        #s3 = rospy.Service('cart_grasp', Trigger, self.cart_grasp)
+        s4 = rospy.Service('human_grasp', Trigger, self.human_grasp)
+        s5 = rospy.Service('human_carry', Trigger, self.human_carry)
+        s6 = rospy.Service('raw_drop', Trigger, self.raw_drop)        
 
         HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
         PORT = 10145        # Port to listen on (non-privileged ports are > 1023)
@@ -51,7 +54,12 @@ class NativeMoveTest():
     def human_carry(self, req):
         data = "4"
         self.sock.send(data.encode())
-        print("4 done")        
+        print("4 done")     
+
+    def raw_drop(self, req):
+        data = "5"
+        self.sock.send(data.encode())
+        print("5 done")           
                      
 
 

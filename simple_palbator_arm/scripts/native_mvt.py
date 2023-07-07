@@ -18,7 +18,8 @@ class NativeMoveTest():
         s2 = rospy.Service('raw_grasp', Trigger, self.raw_grasp)
         s3 = rospy.Service('cart_grasp', Trigger, self.cart_grasp)
         s4 = rospy.Service('human_grasp', Trigger, self.human_grasp)
-        s4 = rospy.Service('human_carry', Trigger, self.human_carry)
+        s5 = rospy.Service('human_carry', Trigger, self.human_carry)
+        s6 = rospy.Service('raw_drop', Trigger, self.raw_drop)
         print("Node Init")
 
         self.Grip = Gripper() 
@@ -70,11 +71,40 @@ class NativeMoveTest():
         self.Grip.close()  
 
         # Travel with bag
-        position_list = [[-0.22848111787904912, -2.039434095422262, 1.6872642675982874, -1.00609643877063, 4.5479583740234375, 0.9501953125]]
+        position_list = [[-0.22848111787904912, -2.039434095422262, 1.6872642675982874, -1.00609643877063, radians(-102), 0.9501953125]]
         duration_list = [5]      
         self.TC.send_joint_trajectory(position_list, duration_list)
                      
         print("Traj done")       
+
+    def raw_drop(self, req):
+
+
+        # preDrop 
+        position_list = [[radians(73.46), radians(-69), radians(101.68), radians(-121.68), radians(-90), radians(-15.52) ]]
+        duration_list = [4]   
+        self.TC.send_joint_trajectory(position_list, duration_list)
+
+        # Drop 
+        position_list = [[radians(75), radians(-38.3), radians(101.58), radians(-155.14), radians(-87), radians(71) ]]
+        duration_list = [3]   
+        self.TC.send_joint_trajectory(position_list, duration_list)      
+        self.Grip.open()
+
+        # postDrop 
+        position_list = [[radians(73.46), radians(-69), radians(101.68), radians(-121.68), radians(-90), radians(-15.52) ]]
+        duration_list = [1]   
+        self.TC.send_joint_trajectory(position_list, duration_list)
+
+
+        self.Grip.close()
+
+        # Home
+        position_list = [[radians(87), radians(-97), radians(159), radians(-51), radians(-180), radians(45) ]]
+        duration_list = [3]      
+        self.TC.send_joint_trajectory(position_list, duration_list)        
+                     
+        print("Traj done")            
 
 
 
