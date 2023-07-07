@@ -55,3 +55,4 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
 
 # Construction du paquet ROS
 RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make && source devel/setup.bash"
+RUN echo "source /catkin_ws/devel/setup.bash" >> ~/.bashrc
