@@ -28,10 +28,9 @@ class NativeMoveTest():
         self.sock.listen(1)
 
         self.conn, self.addr = self.sock.accept()
-
-        with not rospy.is_shutdown():
+        print("connected")
+        while not rospy.is_shutdown():
             data = self.conn.recv(1024)
-            if not data: break
             if int(data) == 1:
                 self.call_point_front()
             elif int(data) == 2:
